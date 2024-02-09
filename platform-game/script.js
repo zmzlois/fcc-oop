@@ -9,6 +9,7 @@ canvas.height = innerHeight;
 const gravity = 0.5;
 let isCheckpointCollisionDetectionActive = true;
 
+// A player class is created to represent the player in the game. 
 class Player {
   constructor() {
     this.position = {
@@ -22,11 +23,14 @@ class Player {
     this.width = 40;
     this.height = 40;
   }
+
+  // draw the canvas for the player
   draw() {
     ctx.fillStyle = "#99c9ff";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
   
+  // update the player's position beased on the canva
   update() {
     this.draw();
     this.position.x += this.velocity.x;
@@ -48,6 +52,7 @@ class Player {
   }
 }
 
+// A platform class is created to represent the platforms in the game.
 class Platform {
   constructor(x, y) {
     this.position = {
@@ -57,12 +62,15 @@ class Platform {
     this.width = 200;
     this.height = 40;
   }
+
+  // draw the platforms
   draw() {
     ctx.fillStyle = "#acd157";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
 }
 
+// A checkpoint class is created to represent the checkpoints in the game.
 class CheckPoint {
   constructor(x, y) {
     this.position = {
@@ -77,10 +85,11 @@ class CheckPoint {
     ctx.fillStyle = "#f1be32";
     ctx.fillRect(this.position.x, this.position.y, this.width, this.height);
   }
+
   claim() {
     this.width = 0;
     this.height = 0;
-    this.position.y = Infinity;
+    this.position.y = Infinity; // Infinity is a global variable greater than any number
   }
 };
 
@@ -104,6 +113,7 @@ const platformPositions = [
 const platforms = platformPositions.map(
   (platform) => new Platform(platform.x, platform.y)
 );
+
 
 const checkpointPositions = [
   { x: 1170, y: 80 },
@@ -129,6 +139,7 @@ const animate = () => {
 
   player.update();
 
+  // Collision detection
   if (keys.rightKey.pressed && player.position.x < 400) {
     player.velocity.x = 5;
   } else if (keys.leftKey.pressed && player.position.x > 100) {
