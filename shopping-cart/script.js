@@ -10,6 +10,7 @@ const cartTotal = document.getElementById("total");
 const showHideCartSpan = document.getElementById("show-hide-cart");
 let isCartShowing = false;
 
+
 const products = [
   {
     id: 1,
@@ -158,6 +159,8 @@ class ShoppingCart {
     }
   }
 
+ 
+
   calculateTaxes(amount) {
     return parseFloat(((this.taxRate / 100) * amount).toFixed(2));
   }
@@ -191,4 +194,10 @@ cartBtn.addEventListener("click", () => {
   showHideCartSpan.textContent = isCartShowing ? "Hide" : "Show";
   cartContainer.style.display = isCartShowing ? "block" : "none";
 });
+
+clearCartBtn.addEventListener("click", () => {
+  cart.clearCart();
+  totalNumberOfItems.textContent = cart.getCounts();
+  cart.calculateTotal();
+})
 
